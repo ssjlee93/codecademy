@@ -1,0 +1,39 @@
+# Binaries
+/recommendation-software
+/cmd/crawler/crawler
+*.exe
+*.out
+
+# Go build cache
+*.test
+*.prof
+
+# Dependency directories (shouldn't be committed if using modules)
+vendor/
+
+# Go workspace file
+go.work
+go.work.sum
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# IDE & editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# macOS
+.DS_Store
+
+# Docker
+docker-compose.override.yml
+
+# Logs
+*.log
+
+# OS generated files
+Thumbs.db

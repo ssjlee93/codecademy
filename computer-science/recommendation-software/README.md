@@ -27,13 +27,29 @@ when i'm playing a game, I want to optimize my party for the gym leaders - requi
 ## Project brainstorming
 
 **What does your program do?**  
-Recommends a random pokemon  
+Recommends a random pokemon based on the game I'm playing.  
+Mainly HM and field move pokemons.  
+Or which pokemon to catch in which version of the game.  
 
 **What data do you need?**  
 Pokemon data  
+- Pokemon sprite variations.  
+- Which Pokemon appears in each game.  
+- The latest game in which the Pokemon is available.  
+- Learnable HMs
 
 **What questions will you ask the user?**  
-The type of pokemon they want a recommendation for.  
+The type of Pokemon they want a recommendation for.  
+
 
 **How do the above questions return a recommendation?**  
 I just randomly pick out a pokemon of the type.  
+
+## ideas for what the application does  
+
+I can split the application to do 2 different things :  
+- Crawl data on all pokemon  
+- Serve data on all collected pokemons
+
+I would need 2 cmds to crawl data on one side and expose REST APIs on the data I need.  
+
