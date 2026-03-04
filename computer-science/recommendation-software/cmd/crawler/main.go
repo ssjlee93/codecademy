@@ -3,8 +3,9 @@ package main
 import (
 	"fmt"
 	"log"
-	"recommendation-software/pkg/pokeapi"
 	"sync"
+
+	"github.com/ssjlee93/recommendation-software/pkg/pokeapi"
 )
 
 var (
