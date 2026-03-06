@@ -2,33 +2,35 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"log"
+	"net/http"
 	"os"
 
+	"github.com/ssjlee93/recommendation-software/pkg/api"
 	"github.com/ssjlee93/recommendation-software/pkg/dotenv"
-	"google.golang.org/genai"
+	genaiClient "github.com/ssjlee93/recommendation-software/pkg/genai"
 )
 
 func main() {
-	log.Println("Application started")
+	log.Println("Starting server...")
 	dotenv.Init()
+
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+	addr := ":" + port
+
 	ctx := context.Background()
-	client, err := genai.NewClient(ctx, &genai.ClientConfig{
-		APIKey: os.Getenv("GEMINI_API_KEY"),
-	})
+	client, err := genaiClient.New(ctx, os.Getenv("GEMINI_API_KEY"))
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("failed to initialize GenAI client: %v", err)
 	}
 
-	result, err := client.Models.GenerateContent(
-		ctx,
-		"gemini-3.1-flash-lite-preview",
-		genai.Text("Speak to me in Gen Z slang. Limit all subsequent conversations to Pokemon related topics. Respond as concisely and succintly as possible."),
-		nil,
-	)
-	if err != nil {
-		log.Fatal(err)
+	mux := api.NewRouter(client)
+
+	log.Printf("Listening on %s", addr)
+	if err := http.ListenAndServe(addr, mux); err != nil {
+		log.Fatalf("server error: %v", err)
 	}
-	fmt.Println(result.Text())
 }
